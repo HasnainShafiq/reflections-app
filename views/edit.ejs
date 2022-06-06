@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Reflection</title>
+</head>
+<body>
+    <form action="/edit?_method=PATCH" method="POST">
+        <label for="prompt">Change prompt: </label>
+        <input type="select" name="reflection[prompt]" id="prompt" value="<%=reflection.prompt%>">
+    </form>
+</body>
+</html>
