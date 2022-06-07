@@ -7,9 +7,13 @@
     <title>Edit Reflection</title>
 </head>
 <body>
-    <form action="/edit?_method=PATCH" method="POST">
+    <form action="/reflections/<%=reflection._id%>?_method=PUT" method="POST">
         <label for="prompt">Change prompt: </label>
         <input type="select" name="reflection[prompt]" id="prompt" value="<%=reflection.prompt%>">
+        <button>submit</button>
     </form>
+    <form action="/reflections/<%=reflection._id%>?_method=DELETE" method="post">
+        <button>DELETE</button>
+        </form>
 </body>
 </html>

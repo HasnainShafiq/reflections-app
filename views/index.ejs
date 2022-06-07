@@ -9,9 +9,9 @@
 <body>
     <h1>All entries</h1>
     <% for(let reflection of reflections) { %>
-        <li><a href="/<%=reflection._id%> "><%= reflection.prompt %></a></li>
+        <li><a href="/reflections/<%=reflection._id%> "><%= reflection.prompt %></a></li>
     <% } %>
 
-    <a href="/new">new reflection</a>
+    <a href="/reflections/new">new reflection</a>
 </body>
 </html>
