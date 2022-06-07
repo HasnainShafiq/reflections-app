@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const ReflectionSchema = new schema({
-    prompt: {type: String, required: true},
+    prompt: String,
     date: Date,
     body: String,
 })

@@ -25,30 +25,51 @@ db.once('open', () => {
 
 
 app.use(express.urlencoded({extended: true})); 
+app.use(methodOverride('_method'));
 
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.get('/', async (req, res) => {
+app.get('/reflections', async (req, res) => {
   const reflections = await Reflection.find({});
   res.render('index', { reflections })
 })
 
-app.get('/new', async (req, res) => {
+app.get('/reflections/new', async (req, res) => {
   res.render('new');
 })
 
-app.post('/', async (req, res) => {
+app.post('/reflections', async (req, res) => {
   const reflection = new Reflection(req.body.reflection);
   await reflection.save();
-  res.redirect(`/`)
+  res.redirect(`/reflections/${reflection._id}`);
 })
 
-app.get('/:id', async (req, res) => {
+app.get('/reflections/:id', async (req, res) => {
   const { id } = req.params;
   const reflection = await Reflection.findById(id);
   res.render('show', { reflection });
+})
+
+app.get('/reflections/:id/edit', async (req, res) => {
+  const { id } = req.params;
+  const reflection = await Reflection.findById(id);
+  res.render('edit', { reflection })
+})
+
+app.put('/reflections/:id', async (req, res) => {
+  const { id } = req.params;
+  // update reflection with new changes made in any elements with name = 'reflection'.
+  const reflection = await Reflection.findByIdAndUpdate(id, {...req.body.reflection}, { runValidators: true, new: true});
+  console.log(req.body);
+  res.redirect(`/reflections/${reflection._id}`);
+})
+
+app.delete('/reflections/:id', async (req, res) => {
+  const { id } = req.params;
+  await Reflection.findByIdAndDelete(id);
+  res.redirect('/reflections');
 })
 
 app.listen('3000', () => {
