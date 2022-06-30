@@ -3,9 +3,8 @@ const schema = mongoose.Schema;
 
 const ReflectionSchema = new schema({
     prompt: String,
-    date: Date,
     body: String,
-})
+}, { timestamps: true })
 
 const Reflection = mongoose.model('Reflection', ReflectionSchema);
 

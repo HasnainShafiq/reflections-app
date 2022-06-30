@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Reflection</title>
-</head>
-<body>
+<% layout('./layouts/boilerplate') -%> 
+<link rel="stylesheet" href="/css/style.css">
+
+<div class="edit__container">
+<div class="edit__reflection__container">
     <form action="/reflections/<%=reflection._id%>?_method=PUT" method="POST">
-        <label for="prompt">Change prompt: </label>
-        <input type="select" name="reflection[prompt]" id="prompt" value="<%=reflection.prompt%>">
-        <button>submit</button>
+        <select name="reflection[prompt]" id="prompt">
+            <option value="how was your day?">How was your day?</option>
+            <option value="what are you grateful for?">What are you grateful for?</option>
+            <option value="What can you improve on?">What can you improve on?</option>
+            <option value="What did you learn today?">What did you learn today?</option>
+            <option value="General reflection">General reflection</option>
+        </select>
+        <textarea name="reflection[body]" id="body" cols="120" rows="20" style="max-width: 100%;"><%= reflection.body %></textarea>
+        <a href="/reflections/<%= reflection._id %>"><button id="cancel__button">cancel</button></a>  
+        <button>save</button>
     </form>
-    <form action="/reflections/<%=reflection._id%>?_method=DELETE" method="post">
-        <button>DELETE</button>
-        </form>
-</body>
-</html>
+    </div>
+</div>
