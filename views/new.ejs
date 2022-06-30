@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Reflection</title>
-</head>
-<body>
-    <form action="/reflections" method="post">
-        <input type="radio" name = "reflection[prompt]" id="prompt" class = "prompt" value="How was your day?">
-        <label for="prompt"> Prompt: How was your day? </label>
-        <br>
-        <input type="radio" name = "reflection[prompt]" id="prompt2" class = "prompt" value="What went well today?">
-        <label for="prompt2"> Prompt: What went well today? </label>
-        <label for="body"> Type your reflection: </label>
-        <br>
-        <textarea name="reflection[body]" id="reflectionBody" cols="30" rows="10"></textarea>
-        <button>SUBMIT</button>
-        </form>    
+<% layout('./layouts/boilerplate') -%> 
+<link rel="stylesheet" href="/css/style.css">
 
-</body>
-</html>
+<div class="new__container">
+    <div class="new__reflection__container">
+        <form action="/reflections" method="POST">
+            <select name="reflection[prompt]" id="prompt">
+                <option value="how was your day?">How was your day?</option>
+                <option value="what are you grateful for?">What are you grateful for?</option>
+                <option value="What can you improve on?">What can you improve on?</option>
+                <option value="What did you learn today?">What did you learn today?</option>
+                <option value="General reflection">General reflection</option>
+            </select>
+            <textarea name="reflection[body]" id="body" cols="120" rows="20" style="max-width: 100%;"><%= reflection.body %></textarea>
+            <button>save</button>
+        </form>
+        </div>
+    </div>
+    
