@@ -1,9 +1,9 @@
 <% layout('./layouts/boilerplate') -%> 
-<link rel="stylesheet" href="/css/style.css">
+
 
 <div class="new__container">
     <div class="new__reflection__container">
-        <form action="/reflections" method="POST">
+        <form id="new__form" action="/" method="POST">
             <select name="reflection[prompt]" id="prompt">
                 <option value="how was your day?">How was your day?</option>
                 <option value="what are you grateful for?">What are you grateful for?</option>
@@ -11,9 +11,10 @@
                 <option value="What did you learn today?">What did you learn today?</option>
                 <option value="General reflection">General reflection</option>
             </select>
-            <textarea name="reflection[body]" id="body" cols="120" rows="20" style="max-width: 100%;"><%= reflection.body %></textarea>
+            <textarea name="reflection[body]" id="body" cols="120" rows="20"><%= reflection.body %></textarea> 
             <button>save</button>
         </form>
+        <a href="/"><button class="cancel__button">cancel</button></a>
         </div>
     </div>
     

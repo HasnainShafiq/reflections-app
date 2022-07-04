@@ -1,15 +1,19 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const morgan = require('morgan');
+/* const morgan = require('morgan'); */
+// require mongo model
 const Reflection = require('./models/reflection');
 var mongoose = require('mongoose');
+// used to create PUT and DELETE routes
 const methodOverride = require('method-override');
+// used to add layouts to ejs
 const engine = require('ejs-mate')
+// config file for mongo atlas
 const config = require("./config");
 const dbUrl = config.dbUrl;
 
-
+// connect to mongo atlas using the given url
 mongoose.connect(dbUrl)
 .then(res => {
   console.log("Connected with Mongoose!")
@@ -24,56 +28,75 @@ db.once('open', () => {
     console.log("database connected");
 })
 
+// enable the use of static files. Access static files relative to this root file.
 app.use(express.static(__dirname + '/public'));
+// middleware used to parse incoming POST requests from req.body
 app.use(express.urlencoded({extended: true})); 
 app.use(methodOverride('_method'));
 
+
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
+// set views path relative to this root file + '/views'
 app.set('views', path.join(__dirname, 'views'));
 
 
-
-app.get('/reflections', async (req, res) => {
+// on home page, display all posts
+app.get('/', async (req, res) => {
+  // when performing any database function, must use await.
   const reflections = await Reflection.find({});
+                    // include reflections as a variable to be used in index.ejs
   res.render('index', { reflections })
 })
 
-app.get('/reflections/new', async (req, res) => {
+
+app.get('/new', async (req, res) => {
   const reflection = Reflection;
   res.render('new', { reflection });
 })
 
-app.post('/reflections', async (req, res) => {
+// send a request to show a new post to the index page & save to db 
+app.post('/', async (req, res) => {
+  // req.body.reflection = anything whose name is in format of: reflection[property], e.g. reflection[prompt], which === reflection.prompt
   const reflection = new Reflection(req.body.reflection);
   await reflection.save();
-  res.redirect(`/reflections/${reflection._id}`);
+  res.redirect(`/${reflection._id}`);
 })
 
-app.get('/reflections/:id', async (req, res) => {
+// get a specific post
+app.get('/:id', async (req, res) => {
   const { id } = req.params;
   const reflection = await Reflection.findById(id);
   res.render('show', { reflection });
 })
 
-app.get('/reflections/:id/edit', async (req, res) => {
+// get edit page for specific post
+app.get('/:id/edit', async (req, res) => {
   const { id } = req.params;
   const reflection = await Reflection.findById(id);
   res.render('edit', { reflection })
 })
 
-app.put('/reflections/:id', async (req, res) => {
+
+// edit specific post
+app.put('/:id', async (req, res) => {
   const { id } = req.params;
   // update reflection with new changes made in any elements with name = 'reflection'.
   const reflection = await Reflection.findByIdAndUpdate(id, {...req.body.reflection}, { runValidators: true, new: true});
   console.log(req.body);
-  res.redirect(`/reflections/${reflection._id}`);
+  res.redirect(`/${reflection._id}`);
 })
 
-app.delete('/reflections/:id', async (req, res) => {
+// delete specific post
+app.delete('/:id', async (req, res) => {
   const { id } = req.params;
   await Reflection.findByIdAndDelete(id);
-  res.redirect('/reflections');
+  res.redirect('/');
+})
+
+// if none of the above routes are found, send this status code
+app.use((req, res) => {
+  res.status(404).send("NOT FOUND");
 })
 
 app.listen('3000', () => {

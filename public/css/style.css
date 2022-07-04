@@ -14,11 +14,12 @@
         - .SHOW__CONTAINER
             - .DELETE__MODAL
             - .BUTTON__CONTAINER
+            - #DELETE__FORM
         - .EDIT__CONTAINER
             - FORM
             - SELECT
             - BUTTON
-            - #CANCEL__BUTTON
+            - .CANCEL__BUTTON
         - .NEW__CONTAINER
     -MEDIA QUERIES:
         -1000px
@@ -169,8 +170,7 @@ table {
 /* --- HTML --- */
 
 html {
-    width: 100vw;
-    height: 100vh;
+    height: 100%;
     --12px: 0.75rem;
     --14px: 0.875rem;
     --15px: 0.9375rem;
@@ -180,12 +180,15 @@ html {
     --19px: 1.1875rem;
     --20px: 1.25rem;
     --21px: 1.3125rem;
+    --24px: 1.5rem;
     --30px: 1.875rem;
     --text__colour: rgb(176 176 176);
     --bg__colour: rgb(20, 19, 19);
     --warning__colour: rgb(246, 7, 55);
+    --text-area__bg__colour: rgb(23, 23, 26);
+    --hover__colour: rgb(46, 46, 50);
+    --svg__hover: rgb(133, 133, 135);
 }
-
 
 /* --- BODY --- */
 
@@ -195,6 +198,7 @@ body {
     justify-content: center;
     background-color: black;
     color: var(--text__colour);
+    height: 100%;
 }
 
 /* --- MAIN --- */
@@ -211,20 +215,22 @@ main {
 /* --- TYPOGRAPHY --- */
 
 textarea {
-    background-color: black;
+    background-color: var(--text-area__bg__colour);
     line-height: 1.75;
-    padding: 1em .75em;
+    padding: 1em;
     border: none;
     border-radius: .2rem;
     outline: var(--text__colour) solid 1px;
     resize: none;
+    /* 100% of its parent's height */
+    height: 100%;
+    width: 100%;
+    scrollbar-width: none;
 }
 
 #show__textarea {
     outline: none;
-    padding: 0;
 }
-
 
 h1,
 h3,
@@ -258,7 +264,7 @@ h3 {
 
 p,
 textarea,
-select {
+select,button {
     font-size: var(--14px);
 }
 
@@ -272,7 +278,6 @@ a {
 
 .show__links {
     display: flex;
-    flex-direction: column;
     align-items: baseline;
     flex-flow: row;
     width: 100%;
@@ -292,14 +297,10 @@ svg {
 }
 
 svg:hover {
-    color: antiquewhite;
+    color: var(--svg__hover);
 }
 
-#delete__button:hover {
-    cursor: pointer;
-}
-
-#logo:hover {
+#logo__svg:hover {
     color: var(--text__colour);
 }
 
@@ -338,15 +339,14 @@ svg:hover {
 .new__container {
     position: relative;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding: 2em;
+    padding: 2em .5em 0;
     max-width: 1000px;
+    flex-flow: column;
+    height: 100%;
 }
 
 .index__heading__container {
     display: flex;
-    flex-direction: column;
     align-items: baseline;
     flex-flow: row;
     width: 100%;
@@ -376,13 +376,16 @@ svg:hover {
     padding: 1.25em 0.75em;
     line-height: 1.75;
     row-gap: .5em;
-    background-color: rgb(11, 11, 12);
+    background-color: var(--text-area__bg__colour);
+}
+
+@keyframes mob__post__hover {
+    0%    {background-color: var(--text-area__bg__colour)}
+    100%  {background-color: var(--hover__colour)}
 }
 
 .post__container:hover, .post__container:focus{
-    cursor: pointer;
-    box-shadow: 5px 10px 5px -8px var(--warning__colour);
-    transform: translate(10px, 0);
+    animation: mob__post__hover .5s ease-out forwards;
 }
 
 /* --- .POST__BODY --- */
@@ -392,23 +395,17 @@ svg:hover {
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    /* white-space: nowrap; */
     text-overflow: ellipsis;
 }
 
 /* --- .SHOW__CONTAINER --- */
 
-.show__container {
-    position: relative;
+.show__container, .index__container {
+    padding: 2em 1.75em;
 }
 
 .blur {
     backdrop-filter: blur(10px);
-}
-
-.show__reflection__container {
-    row-gap: .5em;
-    margin: 0 0 1em 0;
 }
 
 .show__reflection__container,
@@ -418,8 +415,20 @@ form {
     line-height: 2;
     max-width: 100%;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex-flow: column;
+    scrollbar-width: none;
+}
+
+/* hide textarea scrollbar on chromium based browsers */
+::-webkit-scrollbar {
+    scrollbar-gutter: stable;
+}
+
+.show__reflection__container {
+    row-gap: .5em;
+    flex-wrap: nowrap;
+    height: 100%;
+    padding: 0 0 1em 0;
 }
 
 .post__container {
@@ -434,15 +443,23 @@ form {
     z-index: 10;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 75%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     line-height: 1.5;
-    padding: 3em 2.25em;
+    padding: 1.5em;
     row-gap: 1.5em;
     background-color: rgb(7, 6, 6);
+}
+
+
+
+/* --- #DELETE__FORM --- */
+
+#delete__form {
+    padding: 0;
 }
 
 .hidden {
@@ -465,8 +482,17 @@ form {
     background-color: var(--text__colour);
 }
 
+.button__container button:first-child:hover {
+    background-color: rgb(148, 147, 147);
+}
+
 .button__container button:last-child {
     background-color: var(--warning__colour);
+}
+
+
+.button__container button:last-child:hover {
+    background-color: brown;
 }
 
 
@@ -476,19 +502,16 @@ form {
 
 form {
     row-gap: 1em;
+    padding: 0 0 1em;
 }
 
 /* --- SELECT --- */
 
 select {
     background-color: black;
-    padding: .75em;
+    padding: .75em .5em;
     border-radius: .25em;
     border: 1px solid var(--text__colour);
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
 }
 
 /* --- BUTTON --- */
@@ -501,14 +524,18 @@ button {
     font-weight: 600;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 #delete__button {
     background: none;
     border: none;
 }
 
-/* --- #CANCEL__BUTTON --- */
+/* --- .CANCEL__BUTTON --- */
 
-#cancel__button {
+.cancel__button {
     background-color: var(--warning__colour);
     width: 100%;
 }
@@ -517,6 +544,10 @@ button {
 
 option {
     font-size: var(--12px);
+}
+
+.new__reflection__container, .edit__reflection__container {
+    padding: 1em;
 }
 
 /* --- MEDIA QUERIES --- */
@@ -530,5 +561,45 @@ option {
     .show__container,
     .new__container {
         align-self: center;
+        width: 900px;
+        max-width: 1000px;
+    } 
+
+    .index__container svg {
+        align-self: flex-end;
     }
+
+    .post__container {
+        width: 100%;
+    }
+
+    h1, #logo__text {
+        font-size: var(--24px);
+    }
+
+    h3 {
+        font-size: var(--19px);
+    }
+
+    p,
+    textarea,
+    select, button {
+    font-size: var(--16px);
+    }
+
+    svg {
+        width: var(--24px);
+    }
+
+/* 
+    @keyframes post__hover {
+        0%   {transform: translate(0, 0)}
+        100% {transform: translate(8px, 0)} 
+    }
+
+    .post__container:hover, .post__container:focus{
+        cursor: pointer;
+        animation: post__hover .4s forwards;
+    } */
+
 }
