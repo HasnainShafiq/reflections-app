@@ -42,7 +42,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 // on home page, display all posts
-app.get('/', async (req, res) => {
+app.get('/reflection', async (req, res) => {
   // when performing any database function, must use await.
   const reflections = await Reflection.find({});
                     // include reflections as a variable to be used in index.ejs
@@ -50,28 +50,28 @@ app.get('/', async (req, res) => {
 })
 
 
-app.get('/new', async (req, res) => {
+app.get('/reflection/new', async (req, res) => {
   const reflection = Reflection;
   res.render('new', { reflection });
 })
 
 // send a request to show a new post to the index page & save to db 
-app.post('/', async (req, res) => {
+app.post('/reflection', async (req, res) => {
   // req.body.reflection = anything whose name is in format of: reflection[property], e.g. reflection[prompt], which === reflection.prompt
   const reflection = new Reflection(req.body.reflection);
   await reflection.save();
-  res.redirect(`/${reflection._id}`);
+  res.redirect(`/reflection/${reflection._id}`);
 })
 
 // get a specific post
-app.get('/:id', async (req, res) => {
+app.get('/reflection/:id', async (req, res) => {
   const { id } = req.params;
   const reflection = await Reflection.findById(id);
   res.render('show', { reflection });
 })
 
 // get edit page for specific post
-app.get('/:id/edit', async (req, res) => {
+app.get('/reflection/:id/edit', async (req, res) => {
   const { id } = req.params;
   const reflection = await Reflection.findById(id);
   res.render('edit', { reflection })
@@ -79,19 +79,19 @@ app.get('/:id/edit', async (req, res) => {
 
 
 // edit specific post
-app.put('/:id', async (req, res) => {
+app.put('/reflection/:id', async (req, res) => {
   const { id } = req.params;
   // update reflection with new changes made in any elements with name = 'reflection'.
   const reflection = await Reflection.findByIdAndUpdate(id, {...req.body.reflection}, { runValidators: true, new: true});
   console.log(req.body);
-  res.redirect(`/${reflection._id}`);
+  res.redirect(`/reflection/${reflection._id}`);
 })
 
 // delete specific post
-app.delete('/:id', async (req, res) => {
+app.delete('/reflection/:id', async (req, res) => {
   const { id } = req.params;
   await Reflection.findByIdAndDelete(id);
-  res.redirect('/');
+  res.redirect('/reflection');
 })
 
 // if none of the above routes are found, send this status code

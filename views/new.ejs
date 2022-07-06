@@ -3,7 +3,7 @@
 
 <div class="new__container">
     <div class="new__reflection__container">
-        <form id="new__form" action="/" method="POST">
+        <form id="new__form" action="/reflection" method="POST">
             <select name="reflection[prompt]" id="prompt">
                 <option value="how was your day?">How was your day?</option>
                 <option value="what are you grateful for?">What are you grateful for?</option>
@@ -14,7 +14,7 @@
             <textarea name="reflection[body]" id="body" cols="120" rows="20"><%= reflection.body %></textarea> 
             <button>save</button>
         </form>
-        <a href="/"><button class="cancel__button">cancel</button></a>
+        <a href="/reflection"><button class="cancel__button">cancel</button></a>
         </div>
     </div>
     
