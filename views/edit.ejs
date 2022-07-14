@@ -2,7 +2,7 @@
 
 <div class="edit__container">
 <div class="edit__reflection__container">
-    <form id="edit__form" action="/reflection/<%=reflection._id%>?_method=PUT" method="POST">
+    <form id="edit__form" action="/reflections/<%=reflection._id%>?_method=PUT" method="POST">
         <select name="reflection[prompt]" id="prompt">
             <option value="how was your day?">How was your day?</option>
             <option value="what are you grateful for?">What are you grateful for?</option>
@@ -13,6 +13,6 @@
         <textarea name="reflection[body]" id="body" cols="120" rows="20"><%= reflection.body %></textarea>
         <button>save</button>
     </form>
-    <a href="/reflection/<%= reflection._id %>"><button class="cancel__button">cancel</button></a>  
+    <a href="/reflections/<%= reflection._id %>"><button class="cancel__button">cancel</button></a>  
     </div>
 </div>
