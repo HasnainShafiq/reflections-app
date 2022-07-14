@@ -1,7 +1,5 @@
-# reflections
- An online reflection diary application where people can share their daily reflections anonymously in an online safe space.
+# Reflections
+ This is a project I've been working on which uses RESTful routes to achieve CRUD functionality. It is essentially an online reflective journal where users are able to upload their personal reflections. Currently working on implementing authentication so that users can log in to view their reflective entries securely.   
 
- ## Current Status
- For now, the app is intended to run as an online reflection diary where people can share their thoughts online without being judged by others. However, I intend on implementing authentication later on, so that users will only be able to see their own reflections. Therefore, although it may currently function as a shared online platform, this will soon change. 
-
- What you have before you is the MVP. Adding authentication is an added bonus. However, in order to add authentication, I need to learn about the concepts relating to authentication and sessions, so adding this feature will take some time. I don't want to rush adding authentication to my project without having a decent understanding of its main concepts.  
+ ## Status [14/07/2022]
+I am working on adding authentication to this app. I have so far learned about session and cookies, and will soon touch upon authentication in more detail. I am taking concepts learned from Colt Steele's web developer bootcamp and using them to make this project of mine more sophisticated. I hope to have added authentication within the next few days, after which I will consider what my next steps with this project are. 
