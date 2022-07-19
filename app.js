@@ -11,6 +11,7 @@ const methodOverride = require('method-override');
 // used to add layouts to ejs
 const engine = require('ejs-mate')
 const session = require('express-session');
+const flash = require('connect-flash');
 // config file for mongo atlas
 const config = require("./config");
 const dbUrl = config.dbUrl;
@@ -48,6 +49,14 @@ const sessionConfig = {
 }
 
 app.use(session(sessionConfig));
+
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.fail = req.flash('fail');
+  next();
+})
 
 // for any routes handled by the reflectionsRouter, give them all a preceding '/reflections'
 app.use('/reflections', reflectionsRouter);
