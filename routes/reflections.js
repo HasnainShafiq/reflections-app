@@ -23,6 +23,7 @@ router.post('/', async (req, res) => {
     // req.body.reflection = anything whose name is in format of: reflection[property], e.g. reflection[prompt], which === reflection.prompt
     const reflection = new Reflection(req.body.reflection);
     await reflection.save();
+    req.flash('success', 'succesfully created new reflection!');
     res.redirect(`/reflections/${reflection._id}`);
 })
 
@@ -47,6 +48,7 @@ router.put('/:id', async (req, res) => {
     // update reflection with new changes made in any elements with name = 'reflection'.
     const reflection = await Reflection.findByIdAndUpdate(id, { ...req.body.reflection }, { runValidators: true, new: true });
     console.log(req.body);
+    req.flash('success', 'succesfully edited reflection!');
     res.redirect(`/reflections/${reflection._id}`);
 })
 
@@ -54,6 +56,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     await Reflection.findByIdAndDelete(id);
+    req.flash('success', 'succesfully deleted reflection');
     res.redirect('/reflections');
 })
 

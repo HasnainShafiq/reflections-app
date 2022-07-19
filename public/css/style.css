@@ -5,6 +5,7 @@
     - MAIN
     - TYPOGRAPHY
     - SVG
+    - FLASH
     - CONTAINERS:
         - .NAVBAR__CONTAINER
         - .NAV__LINKS__CONTAINER
@@ -264,7 +265,8 @@ h3 {
 
 p,
 textarea,
-select,button {
+select,
+button {
     font-size: var(--14px);
 }
 
@@ -303,6 +305,57 @@ svg:hover {
 #logo__svg:hover {
     color: var(--text__colour);
 }
+
+
+/* --- FLASH --- */
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: .8;
+    }
+
+    90% {
+        opacity: .4;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.flash {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    padding: .5em .5em;
+    margin: 1em 0;
+    background-color: green;
+    border-radius: .5em;
+    animation-name: fade;
+    animation-duration: 4s; 
+}
+
+.flash p {
+    color: white;
+}
+
+.flash button {
+    padding: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.flash svg {
+    width: var(--21px);
+    color: white;
+}
+
 
 /* --- CONTAINERS --- */
 
@@ -380,11 +433,17 @@ svg:hover {
 }
 
 @keyframes mob__post__hover {
-    0%    {background-color: var(--text-area__bg__colour)}
-    100%  {background-color: var(--hover__colour)}
+    0% {
+        background-color: var(--text-area__bg__colour)
+    }
+
+    100% {
+        background-color: var(--hover__colour)
+    }
 }
 
-.post__container:hover, .post__container:focus{
+.post__container:hover,
+.post__container:focus {
     animation: mob__post__hover .5s ease-out forwards;
 }
 
@@ -400,7 +459,8 @@ svg:hover {
 
 /* --- .SHOW__CONTAINER --- */
 
-.show__container, .index__container {
+.show__container,
+.index__container {
     padding: 2em 1.75em;
 }
 
@@ -533,6 +593,10 @@ button:hover {
     border: none;
 }
 
+.close__flash {
+    background: none;
+}
+
 /* --- .CANCEL__BUTTON --- */
 
 .cancel__button {
@@ -546,7 +610,8 @@ option {
     font-size: var(--12px);
 }
 
-.new__reflection__container, .edit__reflection__container {
+.new__reflection__container,
+.edit__reflection__container {
     padding: 1em;
 }
 
@@ -563,7 +628,7 @@ option {
         align-self: center;
         width: 900px;
         max-width: 1000px;
-    } 
+    }
 
     .index__container svg {
         align-self: flex-end;
@@ -573,7 +638,8 @@ option {
         width: 100%;
     }
 
-    h1, #logo__text {
+    h1,
+    #logo__text {
         font-size: var(--24px);
     }
 
@@ -583,15 +649,16 @@ option {
 
     p,
     textarea,
-    select, button {
-    font-size: var(--16px);
+    select,
+    button {
+        font-size: var(--16px);
     }
 
     svg {
         width: var(--24px);
     }
 
-/* 
+    /* 
     @keyframes post__hover {
         0%   {transform: translate(0, 0)}
         100% {transform: translate(8px, 0)} 
