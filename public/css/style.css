@@ -6,9 +6,11 @@
     - TYPOGRAPHY
     - SVG
     - FLASH
+    - .WRAPPER
     - CONTAINERS:
         - .NAVBAR__CONTAINER
         - .NAV__LINKS__CONTAINER
+        - .LOGIN__LINKS 
         - .INDEX__CONTAINER
             - .POST__CONTAINER
             - .POST__BODY
@@ -239,7 +241,7 @@ p,
 a,
 textarea,
 select {
-    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Poppins', sans-serif; 
     color: var(--text__colour);
 }
 
@@ -253,12 +255,11 @@ button {
 }
 
 h1 {
-    font-size: var(--21px);
+    font-size: var(--18px);
     padding: 1em 0;
 }
 
 h3 {
-    font-family: 'Open Sans', sans-serif;
     font-weight: 600;
     font-size: var(--16px);
 }
@@ -267,11 +268,20 @@ p,
 textarea,
 select,
 button {
-    font-size: var(--14px);
+    font-size: var(--16px);
 }
 
 a {
     text-decoration: none;
+}
+
+a:hover {
+    /* color: rgb(148, 147, 147); */
+    color: darkorange;
+}
+
+#logo__text:hover {
+    color: var(--text__colour);
 }
 
 .show__reflection__container h3 {
@@ -285,6 +295,7 @@ a {
     width: 100%;
     align-self: flex-end;
     column-gap: .5em;
+    padding: 1em 0;
 }
 
 .show__links a:first-child {
@@ -324,6 +335,7 @@ svg:hover {
 
     100% {
         opacity: 0;
+        display: none;
     }
 }
 
@@ -333,11 +345,20 @@ svg:hover {
     flex-flow: row;
     align-items: center;
     padding: .5em .5em;
-    margin: 1em 0;
-    background-color: green;
+    margin: 1.5em 0;
     border-radius: .5em;
     animation-name: fade;
-    animation-duration: 4s; 
+    animation-duration: 4s;
+    animation-fill-mode: both;
+    animation-direction: normal;
+}
+
+.flash__success {
+    background-color: darkorange;
+}
+
+.flash__error {
+    background-color: red;
 }
 
 .flash p {
@@ -357,6 +378,14 @@ svg:hover {
 }
 
 
+/* --- .WRAPPER --- */
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
 /* --- CONTAINERS --- */
 
 /* --- .NAVBAR__CONTAINER --- */
@@ -364,6 +393,7 @@ svg:hover {
 .navbar__container {
     width: 100%;
     padding: 1.5em 1em;
+    margin-bottom: 1em;
     position: sticky;
     top: 0;
     display: flex;
@@ -381,6 +411,20 @@ svg:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* --- .LOGIN__LINKS  --- */
+
+.login__links {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 1em 0;
+}
+
+.login__links__ul {
+    display: flex;
+    column-gap: 1em;
 }
 
 
@@ -542,7 +586,7 @@ form {
     background-color: var(--text__colour);
 }
 
-.button__container button:first-child:hover {
+.button__container button:first-child:hover, .login__submit:hover, .save__button:hover {
     background-color: rgb(148, 147, 147);
 }
 
@@ -551,7 +595,7 @@ form {
 }
 
 
-.button__container button:last-child:hover {
+.button__container button:last-child:hover, .cancel__button:hover {
     background-color: brown;
 }
 
@@ -604,16 +648,42 @@ button:hover {
     width: 100%;
 }
 
+.login__submit {
+    max-width: 100px;
+}
+
 /* --- .NEW__CONTAINER --- */
 
 option {
-    font-size: var(--12px);
+    font-size: var(--16px);
 }
 
 .new__reflection__container,
 .edit__reflection__container {
     padding: 1em;
 }
+
+
+input, label {
+    font-family: 'Poppins', sans-serif;
+}
+
+input {
+    padding: .5em;
+    border: 3px solid darkorange;
+    border-radius: .25em;
+}
+
+/* input:invalid {
+    caret-color: red;
+}
+
+input:valid {
+    outline: green 3px solid;
+    caret-color: green;
+} */
+
+
 
 /* --- MEDIA QUERIES --- */
 
@@ -625,6 +695,7 @@ option {
     .edit__container,
     .show__container,
     .new__container {
+        padding: 3em 0;
         align-self: center;
         width: 900px;
         max-width: 1000px;
@@ -640,33 +711,21 @@ option {
 
     h1,
     #logo__text {
-        font-size: var(--24px);
+        font-size: var(--30px);
     }
 
     h3 {
-        font-size: var(--19px);
+        font-size: var(--21px);
     }
 
     p,
     textarea,
     select,
-    button {
-        font-size: var(--16px);
+    button, label, input, li {
+        font-size: var(--21px);
     }
 
     svg {
         width: var(--24px);
     }
-
-    /* 
-    @keyframes post__hover {
-        0%   {transform: translate(0, 0)}
-        100% {transform: translate(8px, 0)} 
-    }
-
-    .post__container:hover, .post__container:focus{
-        cursor: pointer;
-        animation: post__hover .4s forwards;
-    } */
-
 }
