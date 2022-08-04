@@ -1,0 +1,29 @@
+<% layout('./layouts/boilerplate') -%>
+
+    <div class="index__container">
+        <%- include('../partials/flash_error') %>
+            <div class="wrapper">
+                <div class="show__reflection__container">
+                    <form id="register__form" action="/register" method="post">
+                        <div>
+                            <label for="username">Username:</label>
+                            <br>
+                            <input type="text" name="username" id="username" placeholder="enter your username:">
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <br>
+                            <input type="email" name="email" id="email" placeholder="enter your email:">
+                        </div>
+                        <div>
+                            <label for="password">Password:</label>
+                            <br>
+                            <input type="password" name="password" id="password" placeholder="enter your password:">
+                        </div>
+                        <button class="login__submit">submit</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+
+    <script src="/js/flash.js"></script>

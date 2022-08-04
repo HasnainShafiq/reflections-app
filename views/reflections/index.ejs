@@ -1,0 +1,41 @@
+<% layout('./layouts/boilerplate') -%>
+
+    <div class="index__container">
+
+        <%- include('../partials/flash_success') %>
+        <%- include('../partials/flash_error') %>
+
+            <div class="index__heading__container">
+                <h1>All reflections</h1>
+                <a href="/reflections/new"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg></a>
+            </div>
+        
+           <% if (currentUser && currentUser.reflections) { %>     
+
+                <ul>
+                    <%# create list of posts containing a heading and body of text using a for loop %>
+                        <% for(let reflection of reflections) { %>
+                            <li><a href="/reflections/<%=reflection._id%>">
+                                    <div class="post__container">
+                                        <h3 class="post__prompt">
+                                            <%# heading of post is taken from the prompt key-value pair in the reflection
+                                                schema %>
+                                                <%=reflection.prompt %>
+                                        </h3>
+                                        <%# the body is taken from the body key-value pair %>
+                                            <p class="post__body">
+                                                <%=reflection.body %>
+                                            </p>
+                                    </div>
+                                </a></li>
+                            <% } %>
+                </ul>
+             
+            <% } %>
+
+    </div>
+
+    <script src="/js/flash.js"></script>
